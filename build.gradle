@@ -13,7 +13,7 @@ buildscript {
 apply plugin: 'docker-compose'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.4'
+    gradleVersion = '4.10.3'
 }
 
 subprojects {
