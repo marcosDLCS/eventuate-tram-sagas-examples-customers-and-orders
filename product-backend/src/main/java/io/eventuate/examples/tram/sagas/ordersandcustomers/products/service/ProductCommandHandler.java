@@ -35,11 +35,16 @@ public class ProductCommandHandler {
         ReserveStockCommand cmd = cm.getCommand();
 
         try {
+
             productService.reserveStock(cmd.getProductId(), cmd.getProductStock());
             return withSuccess(new ProductStockReserved());
+
         } catch (ProductNotFoundException e) {
+
             return withFailure(new ProductNotFound());
+
         } catch (ProductNotAvailableStockException e) {
+
             return withFailure(new ProductNotAvailableStock());
         }
     }

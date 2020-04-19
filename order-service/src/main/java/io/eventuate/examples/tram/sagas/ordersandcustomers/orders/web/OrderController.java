@@ -12,32 +12,37 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 public class OrderController {
 
-  private OrderService orderService;
-  private OrderRepository orderRepository;
+    private final OrderService orderService;
+    private final OrderRepository orderRepository;
 
-  @Autowired
-  public OrderController(OrderService orderService, OrderRepository orderRepository) {
-    this.orderService = orderService;
-    this.orderRepository = orderRepository;
-  }
+    @Autowired
+    public OrderController(OrderService orderService, OrderRepository orderRepository) {
+        this.orderService = orderService;
+        this.orderRepository = orderRepository;
+    }
 
-  @RequestMapping(value = "/orders", method = RequestMethod.POST)
-  public CreateOrderResponse createOrder(@RequestBody CreateOrderRequest createOrderRequest) {
-    Order order = orderService.createOrder(new OrderDetails(createOrderRequest.getCustomerId(), createOrderRequest.getOrderTotal()));
-    return new CreateOrderResponse(order.getId());
-  }
+    @PostMapping(value = "/orders")
+    public CreateOrderResponse createOrder(@RequestBody CreateOrderRequest createOrderRequest) {
 
-  @RequestMapping(value="/orders/{orderId}", method= RequestMethod.GET)
-  public ResponseEntity<GetOrderResponse> getOrder(@PathVariable Long orderId) {
-    return orderRepository
-            .findById(orderId)
-            .map(o -> new ResponseEntity<>(new GetOrderResponse(o.getId(), o.getState(), o.getRejectionReason()), HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-  }
-  
+        Order order = orderService.createOrder(new OrderDetails(
+                createOrderRequest.getCustomerId(),
+                createOrderRequest.getOrderTotal(),
+                createOrderRequest.getProductId(),
+                createOrderRequest.getProductAmount()));
+        return new CreateOrderResponse(order.getId());
+    }
+
+    @GetMapping(value = "/orders/{orderId}")
+    public ResponseEntity<GetOrderResponse> getOrder(@PathVariable Long orderId) {
+
+        return orderRepository
+                .findById(orderId)
+                .map(o -> new ResponseEntity<>(new GetOrderResponse(o.getId(), o.getState(),
+                        o.getRejectionReason()), HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
 }

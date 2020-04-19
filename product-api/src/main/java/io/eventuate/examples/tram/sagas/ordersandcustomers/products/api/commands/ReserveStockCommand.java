@@ -7,7 +7,6 @@ public class ReserveStockCommand implements Command {
     private final Long productId;
     private final Integer productStock;
 
-
     public ReserveStockCommand(Long productId, Integer productStock) {
         this.productId = productId;
         this.productStock = productStock;

@@ -3,42 +3,29 @@ package io.eventuate.examples.tram.sagas.ordersandcustomers.orders.webapi;
 import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.domain.OrderState;
 import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.domain.RejectionReason;
 
-public class GetOrderResponse {
-  private Long orderId;
-  private OrderState orderState;
-  private RejectionReason rejectionReason;
+public final class GetOrderResponse {
 
-  public GetOrderResponse() {
-  }
+    private final Long orderId;
+    private final OrderState orderState;
+    private final RejectionReason rejectionReason;
 
-  public GetOrderResponse(Long orderId, OrderState orderState, RejectionReason rejectionReason) {
-    this.orderId = orderId;
-    this.orderState = orderState;
-    this.rejectionReason = rejectionReason;
-  }
+    public GetOrderResponse(final Long orderId, final OrderState orderState, final RejectionReason rejectionReason) {
 
-  public Long getOrderId() {
-    return orderId;
-  }
+        this.orderId = orderId;
+        this.orderState = orderState;
+        this.rejectionReason = rejectionReason;
+    }
 
-  public void setOrderId(Long orderId) {
-    this.orderId = orderId;
-  }
+    public Long getOrderId() {
+        return orderId;
+    }
 
-  public OrderState getOrderState() {
-    return orderState;
-  }
+    public OrderState getOrderState() {
+        return orderState;
+    }
 
-  public void setOrderState(OrderState orderState) {
-    this.orderState = orderState;
-  }
+    public RejectionReason getRejectionReason() {
+        return rejectionReason;
+    }
 
-  public RejectionReason getRejectionReason() {
-    return rejectionReason;
-  }
-
-  public void setRejectionReason(RejectionReason rejectionReason) {
-    this.rejectionReason = rejectionReason;
-  }
-  
 }

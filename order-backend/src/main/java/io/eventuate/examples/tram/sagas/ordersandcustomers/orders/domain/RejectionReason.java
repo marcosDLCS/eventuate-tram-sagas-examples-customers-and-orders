@@ -1,6 +1,8 @@
 package io.eventuate.examples.tram.sagas.ordersandcustomers.orders.domain;
 
-public enum RejectionReason { 
-    INSUFFICIENT_CREDIT, 
-    UNKNOWN_CUSTOMER
+public enum RejectionReason {
+    INSUFFICIENT_CREDIT,
+    UNKNOWN_CUSTOMER,
+    INSUFFICIENT_STOCK,
+    UNKNOWN_PRODUCT
 }

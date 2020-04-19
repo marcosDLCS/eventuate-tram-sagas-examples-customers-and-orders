@@ -51,6 +51,7 @@ dockerCompose {
         useComposeFiles = ["docker-compose-postgres.yml"]
         startedServices = ["cdcservice"]
     }
+
     postgres {
         projectName = null
         useComposeFiles = ["docker-compose-postgres.yml"]

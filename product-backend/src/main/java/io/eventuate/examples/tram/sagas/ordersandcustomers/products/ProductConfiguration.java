@@ -19,18 +19,18 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class ProductConfiguration {
 
     @Bean
-    public ProductService productService(ProductRepository productRepository) {
+    public ProductService productService(final ProductRepository productRepository) {
         return new ProductService(productRepository);
     }
 
     @Bean
-    public ProductCommandHandler productCommandHandler(ProductService productService) {
+    public ProductCommandHandler productCommandHandler(final ProductService productService) {
         return new ProductCommandHandler(productService);
     }
 
     @Bean
-    public CommandDispatcher productCommandDispatcher(ProductCommandHandler target,
-                                                      SagaCommandDispatcherFactory sagaCommandDispatcherFactory) {
+    public CommandDispatcher productCommandDispatcher(final ProductCommandHandler target,
+                                                      final SagaCommandDispatcherFactory sagaCommandDispatcherFactory) {
 
         return sagaCommandDispatcherFactory.make("productCommandDispatcher",
                 target.commandHandlerDefinitions());
