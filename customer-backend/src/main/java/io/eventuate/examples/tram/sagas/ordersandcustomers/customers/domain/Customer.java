@@ -7,42 +7,49 @@ import java.util.Collections;
 import java.util.Map;
 
 @Entity
-@Table(name="Customer")
+@Table(name = "Customer")
 @Access(AccessType.FIELD)
 public class Customer {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-  private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @Embedded
-  private Money creditLimit;
+    private String name;
 
-  @ElementCollection
-  private Map<Long, Money> creditReservations;
+    @Embedded
+    private Money creditLimit;
 
-  Money availableCredit() {
-    return creditLimit.subtract(creditReservations.values().stream().reduce(Money.ZERO, Money::add));
-  }
+    @ElementCollection
+    private Map<Long, Money> creditReservations;
 
-  public Customer() {
-  }
+    Money availableCredit() {
+        return creditLimit.subtract(creditReservations.values().stream().reduce(Money.ZERO, Money::add));
+    }
 
-  public Customer(String name, Money creditLimit) {
-    this.name = name;
-    this.creditLimit = creditLimit;
-    this.creditReservations = Collections.emptyMap();
-  }
+    public Customer() {
+        // Customer
+    }
 
-  public Long getId() {
-    return id;
-  }
+    public Customer(String name, Money creditLimit) {
+        this.name = name;
+        this.creditLimit = creditLimit;
+        this.creditReservations = Collections.emptyMap();
+    }
 
-  public void reserveCredit(Long orderId, Money orderTotal) {
-    if (availableCredit().isGreaterThanOrEqual(orderTotal)) {
-      creditReservations.put(orderId, orderTotal);
-    } else
-      throw new CustomerCreditLimitExceededException();
-  }
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void reserveCredit(final Long orderId, final Money orderTotal) {
+
+        if (availableCredit().isGreaterThanOrEqual(orderTotal)) {
+            creditReservations.put(orderId, orderTotal);
+        } else
+            throw new CustomerCreditLimitExceededException();
+    }
 }

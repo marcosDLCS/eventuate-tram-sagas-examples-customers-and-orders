@@ -4,6 +4,7 @@ import io.eventuate.examples.tram.sagas.ordersandcustomers.commondomain.Money;
 import io.eventuate.tram.commands.common.Command;
 
 public class ReserveCreditCommand implements Command {
+
   private Long orderId;
   private Money orderTotal;
   private long customerId;

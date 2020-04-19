@@ -1,6 +1,7 @@
 package io.eventuate.examples.tram.sagas.ordersandcustomers.customers;
 
-import io.eventuate.examples.tram.sagas.ordersandcustomers.customers.web.CustomerWebConfiguration;
+import io.eventuate.examples.tram.sagas.ordersandcustomers.customers.web.ProductWebConfiguration;
+import io.eventuate.examples.tram.sagas.ordersandcustomers.products.ProductConfiguration;
 import io.eventuate.tram.messaging.common.ChannelMapping;
 import io.eventuate.tram.messaging.common.DefaultChannelMapping;
 import io.eventuate.tram.sagas.spring.orchestration.SagaOrchestratorConfiguration;
@@ -15,13 +16,13 @@ import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @Configuration
-@Import({CustomerConfiguration.class,
-        CustomerWebConfiguration.class,
+@Import({ProductConfiguration.class,
+        ProductWebConfiguration.class,
         TramEventsPublisherConfiguration.class,
         TramCommandProducerConfiguration.class,
         SagaOrchestratorConfiguration.class,
         TramJdbcKafkaConfiguration.class})
-public class CustomersServiceMain {
+public class ProductsServiceMain {
 
     @Bean
     public ChannelMapping channelMapping() {
@@ -29,6 +30,6 @@ public class CustomersServiceMain {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(CustomersServiceMain.class, args);
+        SpringApplication.run(ProductsServiceMain.class, args);
     }
 }

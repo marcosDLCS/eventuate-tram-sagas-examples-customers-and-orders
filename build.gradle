@@ -10,7 +10,6 @@ buildscript {
     }
 }
 
-
 apply plugin: 'docker-compose'
 
 task wrapper(type: Wrapper) {
@@ -29,7 +28,6 @@ subprojects {
         }
         eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
     }
-
 }
 
 dockerCompose {
@@ -42,6 +40,7 @@ dockerCompose {
         useComposeFiles = ["docker-compose-mysql.yml"]
         startedServices = ["cdcservice"]
     }
+
     mysql {
         projectName = null
         useComposeFiles = ["docker-compose-mysql.yml"]

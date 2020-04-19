@@ -13,7 +13,6 @@ CREATE TABLE saga_instance_participants (
   PRIMARY KEY(saga_type, saga_id, destination, resource)
 );
 
-
 CREATE TABLE saga_instance(
   saga_type VARCHAR(100) NOT NULL,
   saga_id VARCHAR(100) NOT NULL,
