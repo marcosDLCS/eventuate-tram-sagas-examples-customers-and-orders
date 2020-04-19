@@ -1,6 +1,5 @@
 package io.eventuate.examples.tram.sagas.ordersandcustomers.orders.domain;
 
-
 import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.common.OrderDetails;
 
 import javax.persistence.*;
@@ -56,4 +55,5 @@ public class Order {
   public RejectionReason getRejectionReason() {
     return rejectionReason;
   }
+  
 }

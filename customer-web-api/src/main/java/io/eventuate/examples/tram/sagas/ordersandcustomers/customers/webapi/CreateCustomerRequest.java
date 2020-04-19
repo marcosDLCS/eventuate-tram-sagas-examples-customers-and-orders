@@ -3,6 +3,7 @@ package io.eventuate.examples.tram.sagas.ordersandcustomers.customers.webapi;
 import io.eventuate.examples.tram.sagas.ordersandcustomers.commondomain.Money;
 
 public class CreateCustomerRequest {
+
   private String name;
   private Money creditLimit;
 
@@ -15,7 +16,6 @@ public class CreateCustomerRequest {
     this.creditLimit = creditLimit;
   }
 
-
   public String getName() {
     return name;
   }
@@ -23,4 +23,5 @@ public class CreateCustomerRequest {
   public Money getCreditLimit() {
     return creditLimit;
   }
+  
 }

@@ -1,7 +1,7 @@
 package io.eventuate.examples.tram.sagas.ordersandcustomers.customers.webapi;
 
-
 public class CreateCustomerResponse {
+  
   private Long customerId;
 
   public CreateCustomerResponse() {

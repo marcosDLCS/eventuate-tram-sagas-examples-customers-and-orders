@@ -1,6 +1,5 @@
 package io.eventuate.examples.tram.sagas.ordersandcustomers.orders.webapi;
 
-
 import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.domain.OrderState;
 import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.domain.RejectionReason;
 
@@ -41,4 +40,5 @@ public class GetOrderResponse {
   public void setRejectionReason(RejectionReason rejectionReason) {
     this.rejectionReason = rejectionReason;
   }
+  
 }

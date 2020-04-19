@@ -41,7 +41,6 @@ public class CreateOrderSaga implements SimpleSaga<CreateOrderSagaData> {
     data.setRejectionReason(RejectionReason.INSUFFICIENT_CREDIT);
   }
 
-
   @Override
   public SagaDefinition<CreateOrderSagaData> getSagaDefinition() {
     return this.sagaDefinition;
@@ -69,7 +68,4 @@ public class CreateOrderSaga implements SimpleSaga<CreateOrderSagaData> {
   public void reject(CreateOrderSagaData data) {
     orderRepository.findById(data.getOrderId()).get().reject(data.getRejectionReason());
   }
-
-
-
 }

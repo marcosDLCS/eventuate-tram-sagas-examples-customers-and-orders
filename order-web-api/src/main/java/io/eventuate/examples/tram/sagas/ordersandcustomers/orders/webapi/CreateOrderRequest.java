@@ -1,9 +1,9 @@
 package io.eventuate.examples.tram.sagas.ordersandcustomers.orders.webapi;
 
-
 import io.eventuate.examples.tram.sagas.ordersandcustomers.commondomain.Money;
 
 public class CreateOrderRequest {
+
   private Money orderTotal;
   private Long customerId;
 
@@ -22,4 +22,5 @@ public class CreateOrderRequest {
   public Long getCustomerId() {
     return customerId;
   }
+
 }

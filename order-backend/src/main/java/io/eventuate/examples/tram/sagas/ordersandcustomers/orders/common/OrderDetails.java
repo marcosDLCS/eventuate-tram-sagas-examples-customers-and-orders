@@ -28,4 +28,5 @@ public class OrderDetails {
   public Money getOrderTotal() {
     return orderTotal;
   }
+  
 }
