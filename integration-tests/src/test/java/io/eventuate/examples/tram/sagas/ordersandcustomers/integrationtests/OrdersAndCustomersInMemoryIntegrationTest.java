@@ -7,4 +7,5 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = OrdersAndCustomersInMemoryIntegrationTestConfiguration.class)
 public class OrdersAndCustomersInMemoryIntegrationTest extends AbstractOrdersAndCustomersIntegrationTest {
+    // OrdersAndCustomersInMemoryIntegrationTest
 }

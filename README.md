@@ -14,7 +14,7 @@
 
 #### Instrucciones
 
-Aquí el [repositorio original](https://github.com/marcosDLCS/eventuate-tram-sagas-examples-customers-and-orders).
+Aquí el [repositorio original](https://github.com/eventuate-tram/eventuate-tram-sagas-examples-customers-and-orders).
 
 La documentación original se puede consultar en este [enlace](./ORIGINAL_README.adoc).
 

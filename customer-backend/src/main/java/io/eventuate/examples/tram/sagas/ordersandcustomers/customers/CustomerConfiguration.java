@@ -18,23 +18,24 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableAutoConfiguration
 public class CustomerConfiguration {
 
-  @Bean
-  public CustomerService customerService(CustomerRepository customerRepository) {
-    return new CustomerService(customerRepository);
-  }
+    @Bean
+    public CustomerService customerService(CustomerRepository customerRepository) {
 
-  @Bean
-  public CustomerCommandHandler customerCommandHandler(CustomerService customerService) {
-    return new CustomerCommandHandler(customerService);
-  }
+        return new CustomerService(customerRepository);
+    }
 
-  // TODO Exception handler for CustomerCreditLimitExceededException
+    @Bean
+    public CustomerCommandHandler customerCommandHandler(CustomerService customerService) {
 
-  @Bean
-  public CommandDispatcher consumerCommandDispatcher(CustomerCommandHandler target,
-                                                     SagaCommandDispatcherFactory sagaCommandDispatcherFactory) {
+        return new CustomerCommandHandler(customerService);
+    }
 
-    return sagaCommandDispatcherFactory.make("customerCommandDispatcher", target.commandHandlerDefinitions());
-  }
+    @Bean
+    public CommandDispatcher consumerCommandDispatcher(CustomerCommandHandler target,
+                                                       SagaCommandDispatcherFactory sagaCommandDispatcherFactory) {
+
+        return sagaCommandDispatcherFactory.make("customerCommandDispatcher",
+                target.commandHandlerDefinitions());
+    }
 
 }

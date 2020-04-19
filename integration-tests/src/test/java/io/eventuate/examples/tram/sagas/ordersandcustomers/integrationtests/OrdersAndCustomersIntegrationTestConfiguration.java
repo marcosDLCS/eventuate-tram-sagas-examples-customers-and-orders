@@ -7,4 +7,5 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import({OrdersAndCustomersIntegrationCommonIntegrationTestConfiguration.class, TramJdbcKafkaConfiguration.class})
 public class OrdersAndCustomersIntegrationTestConfiguration {
+    // OrdersAndCustomersIntegrationTestConfiguration
 }

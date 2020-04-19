@@ -2,6 +2,7 @@ package io.eventuate.examples.tram.sagas.ordersandcustomers.integrationtests;
 
 import io.eventuate.examples.tram.sagas.ordersandcustomers.customers.CustomerConfiguration;
 import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.OrderConfiguration;
+import io.eventuate.examples.tram.sagas.ordersandcustomers.products.ProductConfiguration;
 import io.eventuate.tram.messaging.common.ChannelMapping;
 import io.eventuate.tram.messaging.common.DefaultChannelMapping;
 import io.eventuate.tram.sagas.spring.orchestration.SagaOrchestratorConfiguration;
@@ -19,27 +20,26 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Import({
         OrderConfiguration.class,
         CustomerConfiguration.class,
+        ProductConfiguration.class,
         TramEventsPublisherConfiguration.class,
         TramCommandProducerConfiguration.class,
         SagaOrchestratorConfiguration.class
-
 })
 public class OrdersAndCustomersIntegrationCommonIntegrationTestConfiguration {
 
-  @Bean
-  public ChannelMapping channelMapping(TramCommandsAndEventsIntegrationData data) {
-    return DefaultChannelMapping.builder()
-            .with("CustomerAggregate", data.getAggregateDestination())
-            .with("customerService", data.getCommandChannel())
-            .build();
-  }
+    @Bean
+    public ChannelMapping channelMapping(TramCommandsAndEventsIntegrationData data) {
+        return DefaultChannelMapping.builder()
+                .with("CustomerAggregate", data.getAggregateDestination())
+                .with("customerService", data.getCommandChannel())
+                .build();
+    }
 
 
-  @Bean
-  public TramCommandsAndEventsIntegrationData tramCommandsAndEventsIntegrationData() {
-    return new TramCommandsAndEventsIntegrationData();
-  }
-
+    @Bean
+    public TramCommandsAndEventsIntegrationData tramCommandsAndEventsIntegrationData() {
+        return new TramCommandsAndEventsIntegrationData();
+    }
 
 
 }

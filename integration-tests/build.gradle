@@ -1,6 +1,7 @@
 dependencies {
     compile project(":customer-backend")
     compile project(":order-backend")
+    compile project(":product-backend")
 
     testCompile "io.eventuate.tram.core:eventuate-tram-spring-in-memory:$eventuateTramVersion"
     testCompile "io.eventuate.tram.sagas:eventuate-tram-sagas-spring-in-memory:$eventuateTramSagasVersion"

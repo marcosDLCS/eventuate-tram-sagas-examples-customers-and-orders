@@ -8,8 +8,9 @@ import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.domain.Rejecti
 import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.webapi.CreateOrderRequest;
 import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.webapi.CreateOrderResponse;
 import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.webapi.GetOrderResponse;
+import io.eventuate.examples.tram.sagas.ordersandcustomers.products.webapi.CreateProductRequest;
+import io.eventuate.examples.tram.sagas.ordersandcustomers.products.webapi.CreateProductResponse;
 import io.eventuate.util.test.async.Eventually;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,68 +21,143 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.concurrent.TimeUnit;
-
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = CustomersAndOrdersE2ETestConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class CustomersAndOrdersE2ETest{
+@SpringBootTest(classes = CustomersAndOrdersE2ETestConfiguration.class, webEnvironment =
+        SpringBootTest.WebEnvironment.NONE)
+public class CustomersAndOrdersE2ETest {
 
-  @Value("#{systemEnvironment['DOCKER_HOST_IP']}")
-  private String hostName;
+    private static final String ORDERS = "orders";
+    private static final String CUSTOMERS = "customers";
+    private static final String PRODUCTS = "products";
 
-  private String baseUrlOrders(String path) {
-    return "http://"+hostName+":8081/" + path;
-  }
+    private static final String MY_PRODUCT = "MyProduct";
+    private static final String MY_NAME = "Fred";
+    private static final String MY_MONEY = "15.00";
 
-  private String baseUrlCustomers(String path) {
-    return "http://"+hostName+":8082/" + path;
-  }
+    @Value("#{systemEnvironment['DOCKER_HOST_IP']}")
+    private String hostName;
 
-  @Autowired
-  RestTemplate restTemplate;
+    private String baseUrl(final String path, final String port) {
+        return "http://" + hostName + ":" + port + "/" + path;
+    }
 
-  @Test
-  public void shouldApprove() {
-    CreateCustomerResponse createCustomerResponse = restTemplate.postForObject(baseUrlCustomers("customers"),
-            new CreateCustomerRequest("Fred", new Money("15.00")), CreateCustomerResponse.class);
+    private String baseUrlOrders() {
+        return baseUrl(ORDERS, "8081");
+    }
 
-    CreateOrderResponse createOrderResponse = restTemplate.postForObject(baseUrlOrders("orders"),
-            new CreateOrderRequest(createCustomerResponse.getCustomerId(), new Money("12.34")), CreateOrderResponse.class);
+    private String baseUrlCustomers() {
+        return baseUrl(CUSTOMERS, "8082");
+    }
 
-    assertOrderState(createOrderResponse.getOrderId(), OrderState.APPROVED, null);
-  }
+    private String baseUrlProducts() {
+        return baseUrl(PRODUCTS, "8083");
+    }
 
-  @Test
-  public void shouldRejectBecauseOfInsufficientCredit() {
-    CreateCustomerResponse createCustomerResponse = restTemplate.postForObject(baseUrlCustomers("customers"),
-            new CreateCustomerRequest("Fred", new Money("15.00")), CreateCustomerResponse.class);
+    @Autowired
+    RestTemplate restTemplate;
 
-    CreateOrderResponse createOrderResponse = restTemplate.postForObject(baseUrlOrders("orders"),
-            new CreateOrderRequest(createCustomerResponse.getCustomerId(), new Money("123.40")), CreateOrderResponse.class);
+    @Test
+    public void shouldApprove() {
 
-    assertOrderState(createOrderResponse.getOrderId(), OrderState.REJECTED, RejectionReason.INSUFFICIENT_CREDIT);
-  }
+        CreateProductResponse createProductResponse = restTemplate.postForObject(baseUrlProducts(),
+                new CreateProductRequest(MY_PRODUCT, 50), CreateProductResponse.class);
 
-  @Test
-  public void shouldRejectBecauseOfUnknownCustomer() {
+        CreateCustomerResponse createCustomerResponse = restTemplate.postForObject(baseUrlCustomers(),
+                new CreateCustomerRequest(MY_NAME, new Money(MY_MONEY)), CreateCustomerResponse.class);
 
-    CreateOrderResponse createOrderResponse = restTemplate.postForObject(baseUrlOrders("orders"),
-            new CreateOrderRequest(Long.MAX_VALUE, new Money("123.40")), CreateOrderResponse.class);
+        CreateOrderResponse createOrderResponse = restTemplate.postForObject(baseUrlOrders(),
+                new CreateOrderRequest(new Money("12.34"),
+                        createCustomerResponse != null ? createCustomerResponse.getCustomerId() : null,
+                        createProductResponse != null ? createProductResponse.getProductId() : null,
+                        10), CreateOrderResponse.class);
 
-    assertOrderState(createOrderResponse.getOrderId(), OrderState.REJECTED, RejectionReason.UNKNOWN_CUSTOMER);
-  }
+        assertOrderState(createOrderResponse != null ? createOrderResponse.getOrderId() : 0,
+                OrderState.APPROVED, null);
+    }
 
-  private void assertOrderState(Long id, OrderState expectedState, RejectionReason expectedRejectionReason) {
-    Eventually.eventually(() -> {
-      ResponseEntity<GetOrderResponse> getOrderResponseEntity = restTemplate.getForEntity(baseUrlOrders("orders/" + id), GetOrderResponse.class);
-      assertEquals(HttpStatus.OK, getOrderResponseEntity.getStatusCode());
-      GetOrderResponse order = getOrderResponseEntity.getBody();
-      assertEquals(expectedState, order.getOrderState());
-      assertEquals(expectedRejectionReason, order.getRejectionReason());
-    });
+    @Test
+    public void shouldRejectBecauseOfInsufficientCredit() {
 
-  }
+        CreateProductResponse createProductResponse = restTemplate.postForObject(baseUrlProducts(),
+                new CreateProductRequest(MY_PRODUCT, 50), CreateProductResponse.class);
+
+        CreateCustomerResponse createCustomerResponse = restTemplate.postForObject(baseUrlCustomers(),
+                new CreateCustomerRequest(MY_NAME, new Money(MY_MONEY)), CreateCustomerResponse.class);
+
+        CreateOrderResponse createOrderResponse = restTemplate.postForObject(baseUrlOrders(),
+                new CreateOrderRequest(new Money("123.40"),
+                        createCustomerResponse != null ? createCustomerResponse.getCustomerId() : null,
+                        createProductResponse != null ? createProductResponse.getProductId() : null,
+                        10), CreateOrderResponse.class);
+
+        assertOrderState(createOrderResponse != null ? createOrderResponse.getOrderId() : 0,
+                OrderState.REJECTED, RejectionReason.INSUFFICIENT_CREDIT);
+    }
+
+    @Test
+    public void shouldRejectBecauseOfUnknownCustomer() {
+
+        CreateProductResponse createProductResponse = restTemplate.postForObject(baseUrlProducts(),
+                new CreateProductRequest(MY_PRODUCT, 50), CreateProductResponse.class);
+
+        CreateOrderResponse createOrderResponse = restTemplate.postForObject(baseUrlOrders(),
+                new CreateOrderRequest(new Money(MY_MONEY),
+                        Long.MAX_VALUE,
+                        createProductResponse != null ? createProductResponse.getProductId() : null,
+                        10), CreateOrderResponse.class);
+
+        assertOrderState(createOrderResponse != null ? createOrderResponse.getOrderId() : 0,
+                OrderState.REJECTED, RejectionReason.UNKNOWN_CUSTOMER);
+    }
+
+    @Test
+    public void shouldRejectBecauseOfUnknownProduct() {
+
+        CreateCustomerResponse createCustomerResponse = restTemplate.postForObject(baseUrlCustomers(),
+                new CreateCustomerRequest(MY_NAME, new Money(MY_MONEY)), CreateCustomerResponse.class);
+
+        CreateOrderResponse createOrderResponse = restTemplate.postForObject(baseUrlOrders(),
+                new CreateOrderRequest(new Money(MY_MONEY),
+                        createCustomerResponse != null ? createCustomerResponse.getCustomerId() : null,
+                        Long.MAX_VALUE,
+                        10), CreateOrderResponse.class);
+
+        assertOrderState(createOrderResponse != null ? createOrderResponse.getOrderId() : 0,
+                OrderState.REJECTED, RejectionReason.UNKNOWN_PRODUCT);
+    }
+
+    @Test
+    public void shouldRejectBecauseOfInsufficientProductStock() {
+
+        CreateProductResponse createProductResponse = restTemplate.postForObject(baseUrlCustomers(),
+                new CreateProductRequest(MY_PRODUCT, 50), CreateProductResponse.class);
+
+        CreateCustomerResponse createCustomerResponse = restTemplate.postForObject(baseUrlCustomers(),
+                new CreateCustomerRequest(MY_NAME, new Money(MY_MONEY)), CreateCustomerResponse.class);
+
+        CreateOrderResponse createOrderResponse = restTemplate.postForObject(baseUrlOrders(),
+                new CreateOrderRequest(new Money("123.40"),
+                        createCustomerResponse != null ? createCustomerResponse.getCustomerId() : null,
+                        createProductResponse != null ? createProductResponse.getProductId() : null,
+                        500), CreateOrderResponse.class);
+
+        assertOrderState(createOrderResponse != null ? createOrderResponse.getOrderId() : 0,
+                OrderState.REJECTED, RejectionReason.INSUFFICIENT_STOCK);
+    }
+
+    private void assertOrderState(Long id, OrderState expectedState, RejectionReason expectedRejectionReason) {
+
+        Eventually.eventually(() -> {
+            ResponseEntity<GetOrderResponse> getOrderResponseEntity = restTemplate
+                    .getForEntity(baseUrlOrders() + "/" + id, GetOrderResponse.class);
+            assertEquals(HttpStatus.OK, getOrderResponseEntity.getStatusCode());
+            GetOrderResponse order = getOrderResponseEntity.getBody();
+            assertEquals(expectedState, order != null ? order.getOrderState() : null);
+            assertEquals(expectedRejectionReason, order != null ? order.getRejectionReason() : null);
+        });
+
+    }
 
 }

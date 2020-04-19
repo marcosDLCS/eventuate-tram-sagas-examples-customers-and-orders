@@ -18,8 +18,8 @@ public class OrdersAndCustomersInMemoryIntegrationTestConfiguration {
   @Primary
   public DataSource dataSource() {
     EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-    return builder.setType(EmbeddedDatabaseType.H2).addScripts("eventuate-tram-embedded-schema.sql", "eventuate-tram-sagas-embedded.sql").build();
+    return builder.setType(EmbeddedDatabaseType.H2).addScripts("eventuate-tram-embedded-schema.sql",
+            "eventuate-tram-sagas-embedded.sql").build();
   }
-
 
 }

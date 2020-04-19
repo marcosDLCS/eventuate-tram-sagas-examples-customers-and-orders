@@ -4,8 +4,12 @@ import io.eventuate.tram.commands.common.Command;
 
 public class ReserveStockCommand implements Command {
 
-    private final Long productId;
-    private final Integer productStock;
+    private Long productId;
+    private Integer productStock;
+
+    public ReserveStockCommand() {
+        // ReserveStockCommand
+    }
 
     public ReserveStockCommand(Long productId, Integer productStock) {
         this.productId = productId;
