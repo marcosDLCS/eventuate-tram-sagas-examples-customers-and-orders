@@ -19,7 +19,7 @@ public class Product {
     @ElementCollection
     private Map<Long, Integer> stockReservations;
 
-    Integer availableStock() {
+    public Integer availableStock() {
         return stock - stockReservations.values().stream().reduce(0, Integer::sum);
     }
 

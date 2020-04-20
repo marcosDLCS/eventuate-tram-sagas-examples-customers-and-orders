@@ -55,10 +55,11 @@ $ export DOCKER_HOST_IP=10.200.10.1
 ...
 ```
 
-Usando la aplicación:
+Usando la aplicación (asumiendo ip **10.200.10.1**):
 
-- **Order Service** - http://10.200.10.1:8081/swagger-ui.html
-- **Customer Service** - http://10.200.10.1:8082/swagger-ui.html
+- **Orders Service** - http://10.200.10.1:8081/swagger-ui.html
+- **Customers Service** - http://10.200.10.1:8082/swagger-ui.html
+- **Products Service** - http://10.200.10.1:8083/swagger-ui.html
 
 #### Enunciado
 
@@ -70,7 +71,7 @@ El objetivo de esta práctica consiste en implementar una aplicación derivada d
 - Este nuevo microservicio se encargará de **controlar el stock del producto que pide el usuario**, de forma que si el stock no es suficiente, el pedido se rechazará.
 - Queda a libertad del alumno ampliar los datos del pedido para poder referenciar el producto y su stock.
 - Los productos tendrán como **dato extra su nombre**.
-- Será necesario implementar la API REST para el microservicio de productos de forma que se pueda consultar su stock.
+- Será necesario **implementar la API REST** para el microservicio de productos de forma que se pueda **consultar su stock**.
 
 ##### Opcional (para el 10)
 
