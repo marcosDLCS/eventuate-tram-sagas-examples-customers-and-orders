@@ -71,12 +71,11 @@ Proyecto de **Postman**:
 
 ##### Partes completadas
 
-[x] Creación de **servicio de Productos**
-[x] Ampliación de las APIs de consulta
-[x] Creación del **servicio de Gateway**
-[x] Enrutado de las peticiones a través del servicio de Gateway
-[] Agregación de información de 2 **endpoints* en 1 sólo
-
+- [x] Creación de **servicio de Productos**
+- [x] Ampliación de las APIs de consulta
+- [x] Creación del **servicio de Gateway**
+- [x] Enrutado de las peticiones a través del servicio de Gateway
+- [ ] Agregación de información de 2 **endpoints* en 1 sólo
 
 #### Enunciado
 
