@@ -55,5 +55,8 @@ public class Order {
   public RejectionReason getRejectionReason() {
     return rejectionReason;
   }
-  
+
+  public OrderDetails getOrderDetails() {
+    return orderDetails;
+  }
 }

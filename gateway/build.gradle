@@ -18,6 +18,9 @@ dependencies {
     testCompile 'io.projectreactor:reactor-test'
     testCompile 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner'
     testCompile 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
+
+    compile project(":order-web-api")
+    compile project(":product-web-api")
 }
 
 dependencyManagement {
