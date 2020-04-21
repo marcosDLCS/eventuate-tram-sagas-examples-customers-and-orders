@@ -9,18 +9,11 @@ repositories {
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-webflux'
     compile 'org.springframework.cloud:spring-cloud-starter-gateway'
-    compile 'org.springframework.cloud:spring-cloud-starter-sleuth'
-    compile 'org.springframework.cloud:spring-cloud-starter-zipkin'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'io.projectreactor:reactor-test'
-    testCompile 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner'
-    testCompile 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
-
-    compile project(":order-web-api")
-    compile project(":product-web-api")
 }
 
 dependencyManagement {

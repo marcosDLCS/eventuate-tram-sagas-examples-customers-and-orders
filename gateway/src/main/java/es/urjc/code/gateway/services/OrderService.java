@@ -1,8 +1,8 @@
 package es.urjc.code.gateway.services;
 
+import es.urjc.code.gateway.model.GetOrderResponse;
+import es.urjc.code.gateway.model.GetProductResponse;
 import es.urjc.code.gateway.model.OrderDetails;
-import io.eventuate.examples.tram.sagas.ordersandcustomers.orders.webapi.GetOrderResponse;
-import io.eventuate.examples.tram.sagas.ordersandcustomers.products.webapi.GetProductResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
