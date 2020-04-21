@@ -9,9 +9,12 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class GatewayApplication {
 
-    private static final String ORDERS_BASE = "http://orderservice:8080/orders";
-    private static final String CUSTOMERS_BASE = "http://customerservice:8080/customers";
-    private static final String PRODUCTS_BASE = "http://productservice:8080/products";
+    private static final String GET = "GET";
+    private static final String POST = "POST";
+
+    private static final String ORDERS_BASE = "http://orderservice:8080";
+    private static final String CUSTOMERS_BASE = "http://customerservice:8080";
+    private static final String PRODUCTS_BASE = "http://productservice:8080";
 
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class, args);
@@ -20,12 +23,12 @@ public class GatewayApplication {
     @Bean
     public RouteLocator myRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route(o -> o.path().uri(ORDERS_BASE))
-                .route(o -> o.path("/**").uri(ORDERS_BASE))
-                .route(c -> c.path().uri(CUSTOMERS_BASE))
-                .route(c -> c.path("/**").uri(CUSTOMERS_BASE))
-                .route(p -> p.path().uri(PRODUCTS_BASE))
-                .route(p -> p.path("/**").uri(PRODUCTS_BASE))
+                .route(o -> o.path("/orders").and().method(POST).uri(ORDERS_BASE))
+                .route(o -> o.path("/orders/**").and().method(GET).uri(ORDERS_BASE))
+                .route(c -> c.path("/customers").and().method(POST).uri(CUSTOMERS_BASE))
+                .route(c -> c.path("/customers/**").and().method(GET).uri(CUSTOMERS_BASE))
+                .route(p -> p.path("/products").and().method(POST).uri(PRODUCTS_BASE))
+                .route(p -> p.path("/products/**").and().method(GET).uri(PRODUCTS_BASE))
                 .build();
     }
 

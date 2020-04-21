@@ -42,7 +42,7 @@ $ ./gradlew mysqlComposeUp
 Nota:
 
 1. Para lanzar la versión que usa Postgres: `./gradlew postgresComposeBuild` y `./gradlew postgresComposeUp`
-2. Hay que definir `DOCKER_HOST_IP` antes de lanzar la tareas Docker Compose.
+2. Hay que definir `DOCKER_HOST_IP` antes de lanzar las tareas de *Docker Compose*.
 
 Acceder a *[guide to setting DOCKER_HOST_IP](http://eventuate.io/docs/usingdocker.html)* para más información.
 
@@ -60,6 +60,14 @@ Usando la aplicación (asumiendo ip **10.200.10.1**):
 - **Orders Service** - http://10.200.10.1:8081/swagger-ui.html
 - **Customers Service** - http://10.200.10.1:8082/swagger-ui.html
 - **Products Service** - http://10.200.10.1:8083/swagger-ui.html
+
+Gateway (asumiendo ip **10.200.10.1**):
+
+- **Gateway Service** - http://10.200.10.1:9999/
+
+Proyecto de **Postman**:
+
+- [urjc_maca_sagas.postman_collection](./urjc_maca_sagas.postman_collection)
 
 #### Enunciado
 

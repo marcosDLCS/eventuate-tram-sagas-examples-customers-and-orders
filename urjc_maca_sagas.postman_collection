@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "a3f66f7d-090a-4de8-9bac-ed01b2aace9a",
+		"name": "urjc_maca_sagas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GATEWAY",
+			"item": [
+				{
+					"name": "GET orders Gateway",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://10.200.10.1:9999/orders/1",
+							"protocol": "http",
+							"host": [
+								"10",
+								"200",
+								"10",
+								"1"
+							],
+							"port": "9999",
+							"path": [
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST orders Gateway",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": 2,\n    \"orderTotal\": {\n        \"amount\": 345\n    },\n    \"productAmount\": 19,\n    \"productId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.200.10.1:9999/orders",
+							"protocol": "http",
+							"host": [
+								"10",
+								"200",
+								"10",
+								"1"
+							],
+							"port": "9999",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET customers Gateway",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://10.200.10.1:9999/customers/1",
+							"protocol": "http",
+							"host": [
+								"10",
+								"200",
+								"10",
+								"1"
+							],
+							"port": "9999",
+							"path": [
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST customers Gateway",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"creditLimit\": {\n        \"amount\": 1200\n    },\n    \"name\": \"luis\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.200.10.1:9999/customers",
+							"protocol": "http",
+							"host": [
+								"10",
+								"200",
+								"10",
+								"1"
+							],
+							"port": "9999",
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET products Gateway",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://10.200.10.1:9999/products/1",
+							"protocol": "http",
+							"host": [
+								"10",
+								"200",
+								"10",
+								"1"
+							],
+							"port": "9999",
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST products Gateway",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"fresa\",\n  \"stock\": 500\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.200.10.1:9999/products",
+							"protocol": "http",
+							"host": [
+								"10",
+								"200",
+								"10",
+								"1"
+							],
+							"port": "9999",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "GET orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.200.10.1:8081/orders/2",
+					"protocol": "http",
+					"host": [
+						"10",
+						"200",
+						"10",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"orders",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST orders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customerId\": 1,\n    \"orderTotal\": {\n        \"amount\": 4\n    },\n    \"productAmount\": 22,\n    \"productId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.200.10.1:8081/orders",
+					"protocol": "http",
+					"host": [
+						"10",
+						"200",
+						"10",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET customers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.200.10.1:8082/customers/1",
+					"protocol": "http",
+					"host": [
+						"10",
+						"200",
+						"10",
+						"1"
+					],
+					"port": "8082",
+					"path": [
+						"customers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST customers",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"creditLimit\": {\n        \"amount\": 555\n    },\n    \"name\": \"juan\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.200.10.1:8082/customers",
+					"protocol": "http",
+					"host": [
+						"10",
+						"200",
+						"10",
+						"1"
+					],
+					"port": "8082",
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.200.10.1:8083/products/2",
+					"protocol": "http",
+					"host": [
+						"10",
+						"200",
+						"10",
+						"1"
+					],
+					"port": "8083",
+					"path": [
+						"products",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"nabo\",\n  \"stock\": 444\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://10.200.10.1:8083/products",
+					"protocol": "http",
+					"host": [
+						"10",
+						"200",
+						"10",
+						"1"
+					],
+					"port": "8083",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
