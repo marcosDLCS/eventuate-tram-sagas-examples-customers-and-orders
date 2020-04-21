@@ -75,7 +75,8 @@ Proyecto de **Postman**:
 - [x] Ampliación de las APIs de consulta
 - [x] Creación del **servicio de Gateway**
 - [x] Enrutado de las peticiones a través del servicio de Gateway
-- [ ] Agregación de información de 2 **endpoints* en 1 sólo
+
+- [ ] Agregación de información de 2 **endpoints* en 1 sólo (me he quedado a medias)
 
 #### Enunciado
 
